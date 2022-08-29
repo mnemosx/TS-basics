@@ -1,13 +1,48 @@
 # Typescript basics
 
+* [Ievads](#ievads)
+* [Mainīgie](#mainīgie)
+  * [let, const, var](#let-const-var)
+    * [let](#let)
+    * [const](#const)
+    * [var](#var)
+* [if ... else](#if--else)
+  * [Truthy un falsy vērtības](#truthy-un-falsy-vērtības)
+  * [Loģiskie operatori](#loģiskie-operatori)
+  * [== un ===](#un)
+  * [else un else if](#else-un-else-if)
+  * [Nosacījuma operators jeb saīsinātais `if`](#nosacījuma-operators-jeb-saīsinātais-if)
+* [Cikli](#cikli)
+* [Funkcijas](#funkcijas)
+  * [Funkciju izsaukšana](#funkciju-izsaukšana)
+  * [Funkcijas parametri](#funkcijas-parametri)
+  * [Noklusējuma funkciju parametri](#noklusējuma-funkciju-parametri)
+  * [Bultiņu funkcijas](#bultiņu-funkcijas)
+  * [Callback funkcijas](#callback-funkcijas)
+* [Iebūvētās JS metodes](#iebūvētās-js-metodes)
+* [Objekti](#objekti)
+  * [Piekļūšana objektu vērtībām](#piekļūšana-objektu-vērtībām)
+  * [Objektu tipi un interfeisi](#objektu-tipi-un-interfeisi)
+  * [Objektu metodes](#objektu-metodes)
+* [Masīvi](#masīvi)
+  * [Metodes](#metodes)
+  * [Spread operators](#spread-operators)
+* [JS versijas](#js-versijas)
+  * [TS uz JS, konfigurācija](#ts-uz-js-konfigurācija)
+* [Kļūdu paziņojumi](#kļūdu-paziņojumi)
+* [Klases](#klases)
+
+## Ievads
+
 TODO: Write an intro
 
-- Javascript un Typescript lietošana kursā
+* Javascript un Typescript nosaukumu lietošana kursā
+* Uzdevumu palaišana
 
 TODO: Find a place for these random snippets of info
 
-- camelCase, snake_case utt.
-- komentāri kodā
+* camelCase, snake_case utt.
+* komentāri kodā
 
 ## Mainīgie
 
@@ -484,21 +519,22 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 
 ## Iebūvētās JS metodes
 
-- Tekstam (trim, charAt, toUpperCase)
-- Masīviem (at(), push(), join())
-- Objektiem (values(), keys())
-- Math, Date, skaitļiem
-- Callback funkciju koncepts
+* Tekstam (trim, charAt, toUpperCase)
+* Masīviem (at(), push(), join())
+* Objektiem (values(), keys())
+* Math, Date, skaitļiem
+* Callback funkciju koncepts
 
 ## Objekti
 
-- Apraksts
+* Apraksts
 
-### Objektu vērtības: Dot notation un Brackets notation
+### Piekļūšana objektu vērtībām
 
-### Iterācijas, for .. in, Object.keys / values, entries
+* Dot notation un Brackets notation
+* Iterācijas - for..in, Object.keys / values, entries
 
-### Interfeisi / tipi
+### Objektu tipi un interfeisi
 
 ### Objektu metodes
 
@@ -506,11 +542,11 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 
 ### Metodes
 
-- pop, push, shift, unshift
-- find
-- forEach
-- map
-- filter
+* pop, push, shift, unshift
+* find
+* forEach
+* map
+* filter
 
 ### Spread operators
 
@@ -518,15 +554,15 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 
 ### TS uz JS, konfigurācija
 
-## Errori
+## Kļūdu paziņojumi
 
-- Kā lasīt
-- Kā uztaisīt erroru
+* Kā lasīt
+* Kā uztaisīt erroru
 
 ## Klases
 
-- Sintakse - mainīgie un metodes
-- Lietošana - izsaukšana ar new
-- Piekļūšana elementiem, this
-- Parametri klases metodēs
-- Parametri klasē - constructor
+* Sintakse - mainīgie un metodes
+* Lietošana - izsaukšana ar new
+* Piekļūšana elementiem, this
+* Parametri klases metodēs
+* Parametri klasē - constructor
