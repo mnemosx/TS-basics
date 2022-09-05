@@ -527,15 +527,119 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 
 ## Objekti
 
-* Apraksts
+JavaScript objektus deklarē, izmantojot figūriekavas `{}`. Tāpat kā jebkuram objektam dzīvē piemīt dažādas īpašības, arī JavaScript objektus var noraksturot ar dažādām īpašībām (properties), kas pēc veida var būt gan `string`, gan `number`, masīvi, funkcijas vai jebkurš cits datu tips.
+
+```typescript
+const chappy = {
+    name: 'Chappy',
+    age: 4,
+    friends: ['Rex', 'Ringo', 'Lola'],
+    fur: {
+        length: 'short',
+        color: 'black',
+        fluffiness: 'very fluffy'
+    },
+    doTrick: () => console.log('Woof woof! My name is Chappy, woof!'),
+};
+```
+Katrai objekta īpašībai ir atslēga (key), ar kuru, pirmkārt, īpašībai var norādīt vērtību un, otrkārt, caur kuru var sasniegt konkrētās īpašības vērtību vēlāk nepieciešamības gadījumā. Objekta atslēgas (keys) var nosaukt, izmantojot gan lielos, gan mazos burtus, gan zemsvītru `_` vai dolārzīmi `$`. Objekta key nosaukumā nevajadzētu ietvert cita veida simbolus vai ciparus.
+
+Īpašību objektam var būt daudz, var būt arī neviena (tukšs objekts).
+
+`const nothingness = {};`
 
 ### Piekļūšana objektu vērtībām
 
-* Dot notation un Brackets notation
+Objekta īpašību var nolasīt, rakstot objekta nosaukumu, punktu un īpašības atslēgu (key). 
+
+```typescript
+console.log(chappy.name); // izvada 'Chappy'
+console.log(chappy.name === 'Rex'); // izvada 'false'
+console.log(nothingness.name) // izvada undefined
+```
+
+Tādā pat veidā, izmantojot konkrētas īpašības key, objekta īpašībai var mainīt vērtību.
+```typescript
+chappy.name = 'Benjamin';
+console.log(chappy.name); // izvada 'Benjamin'
+```
+
+Iespējams arī papildināt objektu ar jaunām īpašībām.
+```typescript
+const isabella = {
+    name: 'Isabella',
+    age: 10,
+}
+ 
+isabella.country = 'Denmark';
+ 
+console.log(isabella) // atgriež { name: 'Isabella', age: 10, country: 'Denmark' }
+```
+
+Cita alternatīva, kā piekļūt objekta vērtībām, ir atslēgas (key) rakstīšana kvadrātiekavās `[]` aiz objekta nosaukuma.
+Šeit piemērā gan `isabella.age`, gan `isabella[age]` ir viens un tas pats un atgriež to pašu vērtību, proti, `10`.
+```typescript
+const isabella = {
+    name: 'Isabella',
+    age: 10,
+}
+ 
+const a = isabella.age
+const b = isabella[age]
+ 
+console.log(a === b) // izvada true
+```
+
 * Iterācijas - for..in, Object.keys / values, entries
 
 ### Objektu tipi un interfeisi
+Lai mazinātu kļūdu risku un padarītu kodu robustāku, deklarējot jaunu objektu, mēs tam varam piešķirt tipu - type vai interface. Šie tipi atļauj jau laicīgi definēt, kādām īpašībām objektam ir jāpiemīt un kāda tipa īpašības šīs ir. Tā, piemēram, mēs varam izveidot tipu bumba, kam sagaidām, ka būs īpašības krāsa un diametrs. Taču, ja gribēsim pievienot papildus īpašību vārds, būs errors.
 
+Definējot interface vai type tipus, arīdzan tiek izmantotas figūriekavas `{}`. Interfeisiem pirms figūriekavām vienādības zīmi neraksta, bet tipiem raksta.
+Atšķirībā no objektiem, interfeisiem un tipiem parasti pieņemts īpašības atdalīt ar semikolu `;`. 
+Iekš figūriekavām vispirms raksta īpašības atslēgu (key), un tad aiz kola definē īpašības tipu.
+
+```typescript
+interface Ball {
+    color: string;
+    diameter: number;
+    isBouncy?: Boolean;
+}
+ 
+type Person = {
+    name: string;
+    age: number;
+}
+```
+
+Ja vēlas norādīt, ka īpašība ir iespējama, bet ne obligāta, pirms kola var likt jautājumzīmi `?:`. 
+Tā, piemēram, nākamajā paraugā, deklarējot jaunu bumbu, obligāti jānorāda bumbas krāsa un diametrs, bet informāciju par bumbas atsperīgumu drīkst arī izlaist.
+```typescript
+interface Ball {
+    color: string;
+    diameter: number;
+    isBouncy?: Boolean;
+}
+ 
+const basketball: Ball = { // OK
+    color: 'orange',
+    diameter: 10,
+    isBouncy: true,
+}
+ 
+const golfball: Ball = { // OK, jo isBouncy parametrs nav obligāts
+    color: 'white',
+    diameter: 3,
+}
+ 
+const football: Ball = { // error, jo interfeisam 'Ball' nepiemīt īpašība 'name'
+    name: 'Charlie',
+}
+ 
+const tennisball: Ball = { // error, jo nav iekļauta info par diametru, kas interfeisam Ball ir obligāts
+    color: 'white',
+}
+```
 ### Objektu metodes
 
 ## Masīvi
