@@ -20,13 +20,13 @@
   * [Bultiņu funkcijas](#bultiņu-funkcijas)
   * [Callback funkcijas](#callback-funkcijas)
 * [Iebūvētās JS metodes](#iebūvētās-js-metodes)
+* [Masīvi](#masīvi)
+  * [Metodes](#metodes)
+  * [Spread operators](#spread-operators)
 * [Objekti](#objekti)
   * [Piekļūšana objektu vērtībām](#piekļūšana-objektu-vērtībām)
   * [Objektu tipi un interfeisi](#objektu-tipi-un-interfeisi)
   * [Objektu metodes](#objektu-metodes)
-* [Masīvi](#masīvi)
-  * [Metodes](#metodes)
-  * [Spread operators](#spread-operators)
 * [JS versijas](#js-versijas)
   * [TS uz JS, konfigurācija](#ts-uz-js-konfigurācija)
 * [Kļūdu paziņojumi](#kļūdu-paziņojumi)
@@ -525,6 +525,75 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 * Math, Date, skaitļiem
 * Callback funkciju koncepts
 
+## Masīvi
+
+Programmēšanā masīvi ir nekas vairāk ka vienkārši saraksti ar lietām - mainīgajiem, objektiem, funkcijām, jebkādām vērtībām.
+
+Iedomāsimies, ka gatavojamies doties iepirkties. Ikviens prātīgs cilvēks pirms došanās uz veikalu sagatavos iepirkumu sarakstu, citādi var sanākt nopirkt visādus brīnumus. Kā šo iepirkumu sarakstu pierakstīt kodā?
+
+Mēs varētu katru produktu izteikt kā mainīgo:
+
+```typescript
+const item1 = 'sāls';
+const item2 = 'cukurs';
+const item3 = 'dilles';
+const item4 = 'lauru lapas';
+const item5 = 'vāciņi burciņām';
+const item6 = 'etiķis';
+const item7 = 'ķiploki';
+...
+```
+
+Kā redzams, es gatavošu konservus, jo priekšā gara ~~krīze~~ziema. Mans iepirkumu saraksts droši vien kļūs diezgan garš. Es arī vēlēšos veikalā lietas no saraksta izņemt, un varbūt man nāksies rakstīt vairākus sarakstus, jo plānoju apmeklēt dažādus veikalus. Tātad glabāt pērkamos produktus mainīgajos nebūs ērti. Par laimi masīvi šādai situācijai ir kā radīti.
+
+```typescript
+const myGroceriesListLidl = ['sāls', 'cukurs', 'vāciņi burciņām', 'etiķis'];
+const myGroceriesListFarmersMarket = ['dilles', 'lauru lapas', 'ķiploki'];
+```
+
+Tagad visi mani produkti ir divos sarakstos. Tiem ir piešķirti nosaukumi, kas apraksta, kam katrā sarakstā jābūt. Citiem vārdiem sakot, esmu deklarējis mainīgos, kuru vērtības ir masīvi. Šajos masīvos vērtības ir tikai `string` tipa. Tā tam jābūt, neko citu tajos šoreiz glabāt nevēlos, tāpēc pierakstīsim pareizus tipus šiem masīviem:
+
+```typescript
+type TGroceriesList = string[];
+const myGroceriesListLidl: TGroceriesList = ['sāls', 'cukurs', 'vāciņi burciņām', 'etiķis'];
+const myGroceriesListFarmersMarket: TGroceriesList = ['dilles', 'lauru lapas', 'ķiploki'];
+```
+
+Šajā piemērā esmu deklarējis tipu `TGroceriesList`, kurš būtu lasāms kā *stringu masīvs*. Tādējādi tiek izslēgta iespēja, ka kaut kur kodā šajā masīvā varētu nejauši iekļūt cita tipa vērtības. Ja visas vērtības masīvā ir viena tipa, rakstām tipa nosaukumu un uzreiz aiz tā kvadrātiekavas, apzīmējot masīvu. Šo tipu, deklarējot mainīgo, norādu uzreiz aiz mainīgā nosaukuma un kola. Starp citu, tipu nosaukumus rakstīt ar lielo sākumburtu un tam priekšā likt lielo `T` ir nerakstīts likums programmētāju vidū, kas ļauj vieglāk kodā tipus atšķirt no mainīgajiem. Ja masīvā paredzēt uzglabāt, piemēram, gan `string`, gan `number` tipa vērtības? Talkā nāk Typescript simbols `|`, kas ļauj apvienot vairākus tipus vienā: `string[] | number[]`. Pastāv arī citi pieraksta veidi:
+
+```typescript
+const digitsAsStringsOrNumbers1: string[] | number[] = [1, '3', 4, 5, '8'];
+const digitsAsStringsOrNumbers2: (string | number)[] = [2, '3', '4'];
+const digitsAsStringsOrNumbers3: Array<string | number> = [1, 2, 4, 5];
+const digitsAsStringsOrNumbers4: Array<string | number> = [1, 2, 4, 5, true]; // kļūda, jo boolean tipa vērtība šajā masīvā nav atļauta
+```
+
+Savus iepirkumu sarakstus es varu mainīt, tiem pievienojot vai noņemot vērtības. Par to vairāk sadaļā [Masīvu metodes](#masīvu-metodes). Vispirms mums jāzina, ka piekļūt vērtībām masīvā.
+
+![masīvu indeksi](./media/array-index.png)
+
+Vērtības masīvos ir indeksētas - katrai vērtībai atbilst skaitlis jeb indekss, kas apzīmē vērtības atrašanās vietu masīvā. Tas nozīmē arī to, ka svarīga ir vērtību secība. Kā tas programmēšanā pierasts, indeksācija sākas no 0 nevis no 1. Šos indeksus varam izmantot, lai piekļūtu vērtībām masīvā.
+
+```typescript
+const myGroceriesList: string[] = ['sāls', 'cukurs', 'vāciņi burciņām', 'etiķis'];
+
+const singleNotEdibleItem = myGroceriesList[2];
+console.log(singleNotEdibleItem) // 'vāciņi burciņām'
+
+myGroceriesList[2] = ''; // vērtība tiek atrasta un pārrakstīta ar tukšu string vērtību
+console.log(myGroceriesList) // ['sāls', 'cukurs', '', 'etiķis'];
+```
+
+### Masīvu metodes
+
+* pop, push, shift, unshift
+* find
+* forEach
+* map
+* filter
+
+### Spread operators
+
 ## Objekti
 
 ![objekti](./media/kopeyka.png)
@@ -532,6 +601,7 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 Jebkuram objektam dzīvē piemīt dažādas īpašības. Programmēšanā objekti ļauj šīs īpašības uzglabāt vienkopus. JavaScript objektus deklarē, izmantojot figūriekavas `{}`.
 
 Katrs ieraksts objektā tiek saukts par atslēgas un vērtības pāri. Atslēga nosauc īpašību jeb vērtību. Objektā var būt jebkāda tipa vērtības - `string`, `number`, `boolean`, masīvi, arī funkcijas. Objekti var saturēt arī objektus, kas savukārt var saturēt objektus, un arī tajos objektos var būt objekti ar objektiem.
+
 ![nested objects](./media/we-need-to-go-deeper.jpeg)
 
 ```typescript
@@ -676,18 +746,6 @@ Par to vairāk [šajā StackOverlfow diskusijā](https://stackoverflow.com/quest
 Pagaidām abus variantus varam uztvert kā līdzvērtīgus.
 
 ### Objektu metodes
-
-## Masīvi
-
-### Metodes
-
-* pop, push, shift, unshift
-* find
-* forEach
-* map
-* filter
-
-### Spread operators
 
 ## JS versijas
 
