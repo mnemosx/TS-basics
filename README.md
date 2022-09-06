@@ -527,9 +527,15 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 
 ## Objekti
 
-JavaScript objektus deklarē, izmantojot figūriekavas `{}`. Tāpat kā jebkuram objektam dzīvē piemīt dažādas īpašības, arī JavaScript objektus var noraksturot ar dažādām īpašībām (properties), kas pēc veida var būt gan `string`, gan `number`, masīvi, funkcijas vai jebkurš cits datu tips.
+![objekti](./media/kopeyka.png)
+
+Jebkuram objektam dzīvē piemīt dažādas īpašības. Programmēšanā objekti ļauj šīs īpašības uzglabāt vienkopus. JavaScript objektus deklarē, izmantojot figūriekavas `{}`.
+
+Katrs ieraksts objektā tiek saukts par atslēgas un vērtības pāri. Atslēga nosauc īpašību jeb vērtību. Objektā var būt jebkāda tipa vērtības - `string`, `number`, `boolean`, masīvi, arī funkcijas. Objekti var saturēt arī objektus, kas savukārt var saturēt objektus, un arī tajos objektos var būt objekti ar objektiem.
+![nested objects](./media/we-need-to-go-deeper.jpeg)
 
 ```typescript
+// piemērs ar dažāda tipa vērtībām objektā
 const chappy = {
     name: 'Chappy',
     age: 4,
@@ -537,67 +543,98 @@ const chappy = {
     fur: {
         length: 'short',
         color: 'black',
-        fluffiness: 'very fluffy'
+        fluffiness: 'very fluffy',
     },
     doTrick: () => console.log('Woof woof! My name is Chappy, woof!'),
 };
 ```
-Katrai objekta īpašībai ir atslēga (key), ar kuru, pirmkārt, īpašībai var norādīt vērtību un, otrkārt, caur kuru var sasniegt konkrētās īpašības vērtību vēlāk nepieciešamības gadījumā. Objekta atslēgas (keys) var nosaukt, izmantojot gan lielos, gan mazos burtus, gan zemsvītru `_` vai dolārzīmi `$`. Objekta key nosaukumā nevajadzētu ietvert cita veida simbolus vai ciparus.
 
-Īpašību objektam var būt daudz, var būt arī neviena (tukšs objekts).
+Objekta atslēgas (*keys*) var nosaukt, izmantojot gan lielos, gan mazos burtus, gan zemsvītru `_` vai dolārzīmi `$`. Objekta atslēgas nosaukumā nevajadzētu ietvert cita veida simbolus vai ciparus. Javascript valodā parasti ir pieņemts objektu atslēgas rakstīt, izmantojot tā saucamo [`lowerCamelCase` pieraksta veidu](https://www.w3schools.com/js/js_conventions.asp).
+
+Īpašību objektam var būt daudz, var nebūt arī neviena (tukšs objekts).
 
 `const nothingness = {};`
 
 ### Piekļūšana objektu vērtībām
 
-Objekta īpašību var nolasīt, rakstot objekta nosaukumu, punktu un īpašības atslēgu (key). 
+Objekta īpašību var nolasīt, rakstot objekta nosaukumu, punktu un īpašības atslēgu.
 
 ```typescript
-console.log(chappy.name); // izvada 'Chappy'
-console.log(chappy.name === 'Rex'); // izvada 'false'
-console.log(nothingness.name) // izvada undefined
+console.log(chappy.name); // 'Chappy'
+console.log(chappy.name === 'Rex'); // 'false'
+console.log(nothingness.name); // undefined, jo objektā nav tāda atslēgas-vērtības pāra
 ```
 
-Tādā pat veidā, izmantojot konkrētas īpašības key, objekta īpašībai var mainīt vērtību.
+Tādā pašā veidā - izmantojot objekta atslēgas - objekta īpašībai var mainīt vērtību.
+
 ```typescript
-chappy.name = 'Benjamin';
-console.log(chappy.name); // izvada 'Benjamin'
+kopeyka.color = 'green';
 ```
+
+Tagad žiguļa krāsa ir mainīta no oriģinālās dzeltenās uz zaļu.
+![green kopeyka](./media/kopeyka-green-nobg.png)
 
 Iespējams arī papildināt objektu ar jaunām īpašībām.
+
 ```typescript
-const isabella = {
+const person = {
     name: 'Isabella',
     age: 10,
-}
- 
-isabella.country = 'Denmark';
- 
-console.log(isabella) // atgriež { name: 'Isabella', age: 10, country: 'Denmark' }
+};
+
+person.country = 'Denmark';
+
+console.log(person); // atgriež { name: 'Isabella', age: 10, country: 'Denmark' }
 ```
 
-Cita alternatīva, kā piekļūt objekta vērtībām, ir atslēgas (key) rakstīšana kvadrātiekavās `[]` aiz objekta nosaukuma.
-Šeit piemērā gan `isabella.age`, gan `isabella[age]` ir viens un tas pats un atgriež to pašu vērtību, proti, `10`.
+Cita veids, kā piekļūt objekta vērtībām, ir atslēgas rakstīšana kvadrātiekavās `[]` aiz objekta nosaukuma.
+
 ```typescript
-const isabella = {
+const person = {
     name: 'Isabella',
     age: 10,
-}
- 
-const a = isabella.age
-const b = isabella[age]
- 
-console.log(a === b) // izvada true
+};
+
+const a = person.age;
+const b = person['age'];
+
+console.log(a === b); // izvada true
 ```
+
+Šajā piemērā gan `person.age`, gan `person['age']` atgriež to pašu vērtību, proti, `10`.
+
+Šis pieraksts, kur punkta vietā izmantojam kvadrātiekavas, ļauj piekļūtu objekta vērtībām dinamiski, proti, kvadrātiekavās varam rakstīt mainīgos un Javascript izteiksmes, kas ir noderīgi, ja atslēgas nosaukums ir kādas darbības rezultāts vai kā citādi nav tieši pieejams, piemēram, `for` ciklos.
+
+```typescript
+const person = {
+    name: 'Isabella',
+    age: 10,
+    country: 'Germany',
+};
+
+const valuesINeed = ['age', 'name'];
+
+for(let i = 0; i > valuesINeed.length; i++) {
+  console.log(person[valueINeed[i]]);
+}
+```
+
+Šajā piemērā [`for` ciklā](#cikli) izejam cauri `valuesINeed` masīvam, katru no masīva elementiem mēģinot atrast `person` objektā. `for` ciklā ar iteratora `i` palīdzību pēc indeksa iegūstam katru no atslēgām, taču to nosaukumi slēpjas zem `valuesINeed[i]` izteiksmes, un piekļūt `age` vērtībai šādi caur punktu (`person.valuesINeed[i]`) mēs nevarētu.
 
 * Iterācijas - for..in, Object.keys / values, entries
 
 ### Objektu tipi un interfeisi
-Lai mazinātu kļūdu risku un padarītu kodu robustāku, deklarējot jaunu objektu, mēs tam varam piešķirt tipu - type vai interface. Šie tipi atļauj jau laicīgi definēt, kādām īpašībām objektam ir jāpiemīt un kāda tipa īpašības šīs ir. Tā, piemēram, mēs varam izveidot tipu bumba, kam sagaidām, ka būs īpašības krāsa un diametrs. Taču, ja gribēsim pievienot papildus īpašību vārds, būs errors.
 
-Definējot interface vai type tipus, arīdzan tiek izmantotas figūriekavas `{}`. Interfeisiem pirms figūriekavām vienādības zīmi neraksta, bet tipiem raksta.
-Atšķirībā no objektiem, interfeisiem un tipiem parasti pieņemts īpašības atdalīt ar semikolu `;`. 
-Iekš figūriekavām vispirms raksta īpašības atslēgu (key), un tad aiz kola definē īpašības tipu.
+Lai mazinātu kļūdu risku un padarītu kodu robustāku, deklarējot jaunu objektu, mēs tam varam piešķirt tipu - *type* vai *interface*. Šie tipi atļauj jau laicīgi definēt, cik un kādām īpašībām objektam ir jāpiemīt un kāda tipa īpašībām tām jābūt.
+
+Par sintaksi:
+
+* Definējot interfeisus vai tipus, arīdzan tiek izmantotas figūriekavas `{}`;
+* Interfeisiem pirms figūriekavām vienādības zīmi neraksta, bet tipiem raksta;
+* Atšķirībā no objektiem, interfeisiem un tipiem parasti pieņemts īpašības atdalīt ar semikolu `;`;
+* Iekš figūriekavām vispirms raksta īpašības atslēgu (*key*), un tad aiz kola definē īpašības tipu;
+* Ja vēlamies norādīt, ka īpašība ir iespējama, bet ne obligāta, pirms kola var likt jautājumzīmi `?:`;
+* Typescript valodā pieņemts interfeisu un tipu nosaukumus rakstīt ar lielo sākumburtu.
 
 ```typescript
 interface Ball {
@@ -605,41 +642,39 @@ interface Ball {
     diameter: number;
     isBouncy?: Boolean;
 }
- 
-type Person = {
-    name: string;
-    age: number;
-}
-```
 
-Ja vēlas norādīt, ka īpašība ir iespējama, bet ne obligāta, pirms kola var likt jautājumzīmi `?:`. 
-Tā, piemēram, nākamajā paraugā, deklarējot jaunu bumbu, obligāti jānorāda bumbas krāsa un diametrs, bet informāciju par bumbas atsperīgumu drīkst arī izlaist.
-```typescript
-interface Ball {
+/** Vai arī:
+  type Ball = {
     color: string;
     diameter: number;
     isBouncy?: Boolean;
-}
- 
+  }
+*/
+
 const basketball: Ball = { // OK
     color: 'orange',
     diameter: 10,
     isBouncy: true,
 }
- 
+
 const golfball: Ball = { // OK, jo isBouncy parametrs nav obligāts
     color: 'white',
     diameter: 3,
 }
- 
-const football: Ball = { // error, jo interfeisam 'Ball' nepiemīt īpašība 'name'
+
+const football: Ball = { // kļūda, jo interfeisam 'Ball' nepiemīt īpašība 'name'
     name: 'Charlie',
 }
- 
-const tennisball: Ball = { // error, jo nav iekļauta info par diametru, kas interfeisam Ball ir obligāts
+
+const tennisball: Ball = { // kļūda, jo nav iekļauta inforomācija par diametru, ko 'Ball' interfeiss nosaka kā obligātu
     color: 'white',
 }
 ```
+
+Kā izvēlēties - lietot tipu vai interfeisu? Būtiskas atšķirības abu lietojumā parādās tikai sarežģītākos gadījumos.
+Par to vairāk [šajā StackOverlfow diskusijā](https://stackoverflow.com/questions/37233735/interfaces-vs-types-in-typescript/52682220#52682220).
+Pagaidām abus variantus varam uztvert kā līdzvērtīgus.
+
 ### Objektu metodes
 
 ## Masīvi
