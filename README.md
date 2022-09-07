@@ -37,6 +37,7 @@
 TODO: Write an intro
 
 * Javascript un Typescript nosaukumu lietošana kursā
+* Ko šis kurss nosedz, ko nē. Kāpēc tikai basics un daudz kas izlaists
 * Uzdevumu palaišana
 
 TODO: Find a place for these random snippets of info
@@ -454,6 +455,8 @@ sum('2', '3'); // kļūda, jo skaitļu vietā mēģinām izmantot string tipa v�
 
 ### Noklusējuma funkciju parametri
 
+### *rest* parametri
+
 ### Bultiņu funkcijas
 
 Bultiņu funkcijas sauc par bultiņu funkcijām, jo tajās ir bultiņa, ko pieraksta ar `=>`. 🤷‍♂️ Tas nav mūsu izdomāts nosaukums, arī angliski to sauc par [*arrow function*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
@@ -510,7 +513,7 @@ Savukārt, ja funkcijai nebūtu parametru, iekavas vienkārši paliktu tukšas, 
 ```typescript
 const sayHi = () => alert("Čau!");
 
-sayHi(); // izsaucam kā parastu funkciju, iegūstam konsolē izvadītu string tipa vērtību '=>'
+sayHi(); // izsaucam kā parastu funkciju, iegūstam konsolē izvadītu string tipa vērtību 'Čau!'
 ```
 
 Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai funkcijai. Par to vairāk sadaļā [callback funkcijas](#callback-funkcijas).
@@ -527,7 +530,7 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 
 ## Masīvi
 
-Programmēšanā masīvi ir nekas vairāk ka vienkārši saraksti ar lietām - mainīgajiem, objektiem, funkcijām, jebkādām vērtībām. Masīvus varam atpazīt pēc kvadrātiekavām masīva sākumā un beigās, bet elementi masīvos tiek atdalīti ar komatiem.
+Programmēšanā masīvi ir nekas vairāk kā vienkārši saraksti ar lietām - mainīgajiem, objektiem, funkcijām, jebkādām vērtībām. Masīvus varam atpazīt pēc kvadrātiekavām masīva sākumā un beigās, bet elementi masīvos tiek atdalīti ar komatiem.
 
 Iedomāsimies, ka gatavojamies doties iepirkties. Ikviens prātīgs cilvēks pirms došanās uz veikalu sagatavos iepirkumu sarakstu, citādi var sanākt nopirkt visādus brīnumus. Kā šo iepirkumu sarakstu pierakstīt kodā?
 
@@ -559,7 +562,7 @@ const myGroceriesListLidl: TGroceriesList = ['sāls', 'cukurs', 'vāciņi burci�
 const myGroceriesListFarmersMarket: TGroceriesList = ['dilles', 'lauru lapas', 'ķiploki'];
 ```
 
-Šajā piemērā esmu deklarējis tipu `TGroceriesList`, kurš būtu lasāms kā *stringu masīvs*. Tādējādi tiek izslēgta iespēja, ka kaut kur kodā šajā masīvā varētu nejauši iekļūt cita tipa vērtības. Ja visas vērtības masīvā ir viena tipa, rakstām tipa nosaukumu un uzreiz aiz tā kvadrātiekavas, apzīmējot masīvu. Šo tipu, deklarējot mainīgo, norādu uzreiz aiz mainīgā nosaukuma un kola. Starp citu, tipu nosaukumus rakstīt ar lielo sākumburtu un tam priekšā likt lielo `T` ir nerakstīts likums programmētāju vidū, kas ļauj vieglāk kodā tipus atšķirt no mainīgajiem. Ja masīvā paredzēt uzglabāt, piemēram, gan `string`, gan `number` tipa vērtības? Talkā nāk Typescript simbols `|`, kas ļauj apvienot vairākus tipus vienā: `string[] | number[]`. Pastāv arī citi pieraksta veidi:
+Šajā piemērā esmu deklarējis tipu `TGroceriesList`, kurš būtu lasāms kā *stringu masīvs*. Tādējādi tiek izslēgta iespēja, ka kaut kur kodā šajā masīvā varētu nejauši iekļūt cita tipa vērtības. Ja visas vērtības masīvā ir viena tipa, rakstām tipa nosaukumu un uzreiz aiz tā kvadrātiekavas, apzīmējot masīvu. Deklarējot mainīgo, šo tipu norādu uzreiz aiz mainīgā nosaukuma un kola. Starp citu, tipu nosaukumus rakstīt ar lielo sākumburtu un tam priekšā likt lielo `T` ir nerakstīts likums programmētāju vidū, kas ļauj vieglāk kodā tipus atšķirt no mainīgajiem. Ja masīvā paredzēt uzglabāt, piemēram, gan `string`, gan `number` tipa vērtības? Talkā nāk Typescript simbols `|`, kas ļauj apvienot vairākus tipus vienā: `string[] | number[]`. Pastāv arī citi pieraksta veidi:
 
 ```typescript
 const digitsAsStringsOrNumbers1: string[] | number[] = [1, '3', 4, 5, '8'];
@@ -581,7 +584,7 @@ const singleNotEdibleItem = myGroceriesList[2];
 console.log(singleNotEdibleItem) // 'vāciņi burciņām'
 
 myGroceriesList[2] = ''; // vērtība tiek atrasta un pārrakstīta ar tukšu string vērtību
-console.log(myGroceriesList) // ['sāls', 'cukurs', '', 'etiķis'];
+console.log(myGroceriesList) // ['sāls', 'cukurs', '', 'etiķis']
 ```
 
 ### Masīvu metodes
