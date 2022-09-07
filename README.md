@@ -527,7 +527,7 @@ Bultiņas funkcijas bieži tiek lietotas, kad funkcija ir arguments kādai citai
 
 ## Masīvi
 
-Programmēšanā masīvi ir nekas vairāk ka vienkārši saraksti ar lietām - mainīgajiem, objektiem, funkcijām, jebkādām vērtībām.
+Programmēšanā masīvi ir nekas vairāk ka vienkārši saraksti ar lietām - mainīgajiem, objektiem, funkcijām, jebkādām vērtībām. Masīvus varam atpazīt pēc kvadrātiekavām masīva sākumā un beigās, bet elementi masīvos tiek atdalīti ar komatiem.
 
 Iedomāsimies, ka gatavojamies doties iepirkties. Ikviens prātīgs cilvēks pirms došanās uz veikalu sagatavos iepirkumu sarakstu, citādi var sanākt nopirkt visādus brīnumus. Kā šo iepirkumu sarakstu pierakstīt kodā?
 
@@ -600,7 +600,7 @@ console.log(myGroceriesList) // ['sāls', 'cukurs', '', 'etiķis'];
 
 Jebkuram objektam dzīvē piemīt dažādas īpašības. Programmēšanā objekti ļauj šīs īpašības uzglabāt vienkopus. JavaScript objektus deklarē, izmantojot figūriekavas `{}`.
 
-Katrs ieraksts objektā tiek saukts par atslēgas un vērtības pāri. Atslēga nosauc īpašību jeb vērtību. Objektā var būt jebkāda tipa vērtības - `string`, `number`, `boolean`, masīvi, arī funkcijas. Objekti var saturēt arī objektus, kas savukārt var saturēt objektus, un arī tajos objektos var būt objekti ar objektiem.
+Katrs ieraksts objektā tiek saukts par atslēgas un vērtības pāri. Atslēga nosauc īpašību jeb vērtību. Ja [masīvs](#masīvi) ir vienkāršs saraksts, kas satur tikai vērtības, tad objekts ir saraksts, kas satur vērtības, kurām ir nosaukumi. Objektā var būt jebkāda tipa vērtības - `string`, `number`, `boolean`, masīvi, arī funkcijas. Objekti var saturēt arī objektus, kas savukārt var saturēt objektus, un arī tajos objektos var būt objekti ar objektiem.
 
 ![nested objects](./media/we-need-to-go-deeper.jpeg)
 
@@ -673,7 +673,7 @@ console.log(a === b); // izvada true
 
 Šajā piemērā gan `person.age`, gan `person['age']` atgriež to pašu vērtību, proti, `10`.
 
-Šis pieraksts, kur punkta vietā izmantojam kvadrātiekavas, ļauj piekļūtu objekta vērtībām dinamiski, proti, kvadrātiekavās varam rakstīt mainīgos un Javascript izteiksmes, kas ir noderīgi, ja atslēgas nosaukums ir kādas darbības rezultāts vai kā citādi nav tieši pieejams, piemēram, `for` ciklos.
+Šis pieraksts, kur punkta vietā izmantojam kvadrātiekavas, ļauj piekļūt objekta vērtībām dinamiski, proti, kvadrātiekavās varam rakstīt mainīgos un Javascript izteiksmes, kas ir noderīgi, ja atslēgas nosaukums ir kādas darbības rezultāts vai kā citādi nav tieši pieejams, piemēram, `for` ciklos.
 
 ```typescript
 const person = {
